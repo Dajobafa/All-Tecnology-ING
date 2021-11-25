@@ -20,7 +20,7 @@ const url3 = "http://localhost:3001/Ventas/";
 const url4 = "http://localhost:3001/Loged/";
 
 const prodCarrito = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-let totalCarrito = [0, 2];
+let totalCarrito = [0, 3135];
 const venta = {};
 let contador = 0;
 const fecha = new Date();
