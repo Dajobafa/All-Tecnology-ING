@@ -1,0 +1,328 @@
+html{
+	background-color:"#B59C5A";
+}
+#tarjeta{
+
+    background-color: rgba(255, 238, 2, 0.425);
+    width: 500px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 50px;
+    padding-right: 20px;
+    border-radius: 0px;
+	border: 10px solid;
+}
+#logo{
+    border-radius: 50%;
+	margin-bottom: 10PX;
+    width: 100%;
+    height: 250px;
+	border: 4px solid black;
+}
+#logo2{
+	border-radius: 50%;
+	width: 350px;
+	height: auto;
+	margin-left: 10%;
+	margin-bottom: 20px;
+	margin-top: 5px;
+	border: 4px solid black;
+}
+
+
+
+#iniciodesesion{
+	margin-top: auto;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+    font-style: italic;
+}
+.entradas{
+
+   display: block;
+   width: 50%;
+   margin: auto;
+  
+}
+
+  
+.centrartextos{
+
+    text-align: center;
+    font-family:sans-serif ;
+
+}
+
+#ingresar{
+    background-color: rgba(128, 128, 128, 0.473);
+    position: relative;
+    left: 200px;
+    padding: 10px;
+    padding-right: 20px;
+    border-radius: 5px;
+	margin-top: 20px;
+ 
+}
+#registrarse{
+    background-color:rgba(90, 84, 84, 0.5) ;
+    position: relative;
+    left: 190px;
+    padding: 10px;
+    padding-right: 20px;
+    border-radius: 5px;
+	margin-top: 20px;
+}
+.botones2{
+	width: 140px;
+	height: 40px;
+    position: relative;
+	margin-left: 35%;
+    padding: 10px;
+    padding-right: 20px;
+    border-radius: 5px;
+	margin-top: 20px;
+	background-color: #7e6b1e;
+	color: black;
+	font-size: 16px;
+	
+
+}
+
+#botonTwiter{
+    width: 50%;
+    color: floralwhite;
+    background-color: rgba(12, 144, 233, 0.911);
+    font-size: 5px;
+    position: relative;
+    left: 124px;
+    padding: 5px;
+    padding-right: 20px;
+    border-radius: 5px;
+ 
+}
+
+#botonFacebook{
+    width: 50%;
+    color: floralwhite;
+    background-color: rgb(24, 34, 163);
+    font-size: 5px;
+    position: relative;
+    left: 124px;
+    padding: 5px;
+    padding-right: 20px;
+    border-radius: 5px;
+ 
+}
+
+#botonLinkedln{
+    width: 50%;
+    color: floralwhite;
+    background-color: rgba(7, 42, 197, 0.788);
+    font-size: 5px;
+    position: relative;
+    left: 124px;
+    padding: 5px;
+    padding-right: 20px;
+    border-radius: 5px;
+ 
+}
+
+#botonGoogle{
+    width: 50%;
+    background-color: rgb(255, 255, 255);
+    font-size: 5px;
+    position: relative;
+    left: 124px;
+    padding: 5px;
+    padding-right: 20px;
+    border-radius: 5px;
+ 
+}
+
+
+#principal{
+	width: 900px;
+	height: auto; overflow: hidden;
+	border: 0px solid #000;
+	margin: auto;
+	background: #c2c4c5;
+}
+#carrito{
+	border-color: black;
+	background-color: rgb(160, 126, 41);
+	display: inline-block;
+	float: right;
+	margin-top: 5%;
+	margin-left: 10px;	
+	margin-right: 10px;
+	font-size: 20px;
+	color: black;
+	text-decoration: none;
+	font-family: cursive;
+	border-radius: 5px;
+}
+
+#cabezera{
+	
+	width: auto;
+	height: auto;
+	border: 1px solid #000;
+} 
+
+
+
+.titulo{
+	margin-top: 25px;
+	font-size: 30px;
+}
+
+.sub-titulo{
+	font-size: 14px;
+	margin-top: -20px;
+}
+
+
+#categorias{
+	
+	width: 900px;
+	height: auto; overflow: hidden;
+	border: px solid;
+	margin-left: auto;
+	margin-right: auto;
+	
+	text-align: center;
+	
+	display:block;
+}
+#categorias2{
+	
+	width: 900px;
+	height: auto; overflow: hidden;
+	border: px solid;
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	text-align: center;
+	display:block;
+}
+
+
+.uno{
+	background-color: rgb(216, 193, 140);
+	width: 260px;
+	border: 1px solid rgb(0, 0, 0);
+	float: left;
+	padding: 5px;
+	text-align: center;
+	color: #000000;
+	margin: 10px;
+}
+
+.precio{
+	color: #000000;
+	text-align: center;
+	
+}
+.parrafo{
+	color: #000000;
+	text-align: center;
+	margin-top: 100px;
+	
+	font-family: cursive;
+}
+.dos{
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.leer-mas{
+	text-decoration: none;
+	border: 1px solid #000000;
+	padding: 10px 20px 10px 20px;
+	margin-bottom: 10px;
+	color: black;
+}
+.Añadir{
+	color: black;
+}
+
+.leer-mas:hover{
+	background: #030303;
+	color: #fff;
+}
+
+
+#info {
+	width: 900px;
+	height: auto; overflow: hidden;
+	border: 0px solid #c0c0c0;
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+#izq{
+	width: 585px;
+	height: auto; overflow: hidden;
+	border: 1px solid #ccc;
+	float: left;
+	padding: 5px; color: #4682b4;
+}
+.menu{
+	position: relative;
+	height: 40px;
+	float: right;
+	align-items: top;
+	margin-top: 40px;
+	background: #c2c4c5;
+	margin-left: 1000px;
+}
+
+.imagenesprincipal{
+	margin-right: 7px;
+	margin-bottom: 7px;
+}
+
+.botones3{
+	
+	position:relative;
+	border-radius: 5%;
+	background-color: #7e6b1e;
+	color: #7e6b1e;
+	
+
+	
+}
+
+.seccion{
+	text-align-last: center;
+	float: left;
+	color: rgb(0, 0, 0);
+	margin: 10px;
+	padding: 10px 10px;
+	background: rgb(201, 165, 4);
+	width: 30%;
+	border: 2px solid rgb(0, 0, 0);
+	text-decoration: none;
+ }
+.seleccion{
+	text-align-last: center;
+	float: left;
+	color: rgb(253, 252, 252);
+	margin: 10px;
+	padding: 10px 10px;
+	background: rgb(119, 102, 26);
+	width: 30%;
+	border: 2px solid rgb(0, 0, 0);
+	text-decoration: none;
+ }
+	 
+h5{
+	font-size: 14px;	
+	font-family: cursive;
+}
+h2{
+	font-size: 14px;	
+	font-family: cursive;
+}
