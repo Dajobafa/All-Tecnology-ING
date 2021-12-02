@@ -141,8 +141,9 @@ export default class loged_admin extends Component {
                         <img src={imgexport.logo} id="logo" />
                         <rl id="cabezeraCar">
 
-                            <a id="carrito" className="fourth" href="/Inventario"><img src={imgexport.carrito} width="20" height="20" />  Editar Productos</a>
-                            <a id="carrito" className="fourth" href="/Usuarios"><img src={imgexport['foto 4']} width="20" height="20" />  Editar Usuarios</a>
+                            <a id="carrito" className="fourth" href="/Inventario"><img src={imgexport.carrito} width="20" height="20" />  Productos</a>
+                            <a id="carrito" className="fourth" href="/Usuarios"><img src={imgexport['foto 4']} width="20" height="20" />  Usuarios</a>
+                            <a id="carrito" className="fourth" href="/admin_solicitudes"><img src={imgexport['foto 4']} width="20" height="20" />  Solicitudes</a>
                             <a id="carrito" className="fourth" href="/">Cerrar Sesion</a>
                         </rl>
 

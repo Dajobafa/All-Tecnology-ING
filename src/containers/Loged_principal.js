@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import BotonNav from '../componentes/BotonNav';
 import loged_admin from './Loged_admin';
+import { Fragment } from 'react';
 
 
 const url = "http://localhost:3001/Producto/";
@@ -31,7 +32,7 @@ export default class loged_principal extends Component {
     state = {
         data: [],
         count: 1,
-        modalSolicitud: false,
+        modaldetalleSolicitud: false,
         modalAñadido: false,
         modalInsertar: false,
         modalEliminar: false,
@@ -63,6 +64,11 @@ export default class loged_principal extends Component {
     state3 = {
         data3: [],
         form: {
+            id:'',
+            Correo:'',
+            Estado:'',
+            Monto_Total:'',
+            Fecha:''
         }
     }
     state4 = {
@@ -110,21 +116,21 @@ export default class loged_principal extends Component {
     }
     peticionGet2 = () => {
         axios.get(url2).then(response => {
-            this.setState({ data2: response.data2 });
+            this.setState2({ data2: response.data });
         }).catch(error => {
             console.log(error.message);
         })
     }
     peticionGet3 = () => {
         axios.get(url3).then(response => {
-            this.setState({ data3: response.data3 });
+            this.setState3({ data3: response.data });
         }).catch(error => {
             console.log(error.message);
         })
     }
-    peticionGet3 = () => {
+    peticionGet4 = () => {
         axios.get(url4).then(response => {
-            this.setState({ data4: response.data });
+            this.setState4({ data4: response.data });
         }).catch(error => {
             console.log(error.message);
         })
@@ -146,12 +152,12 @@ export default class loged_principal extends Component {
     calcularLargo=async(va)=>{
         leng=va
     }
-    postVenta = async () => {
-        
+    postVenta = async () => {     
            
-        venta["Correo Usuario"]=correo  
+        venta["Correo_Usuario"]=correo  
         venta["Fecha"] = fecha
-        venta["Monto Total"] = totalCarrito[0]
+        venta["Monto_Total"] = totalCarrito[0]
+        venta["Estado"]=false
         await axios.post(url3, venta)
             .then(response => {
 
@@ -171,6 +177,9 @@ export default class loged_principal extends Component {
     cerrarSesion=()=>{
         axios.delete(url4+1) 
         window.location.href = "./"
+    }
+    Solicitudes=()=>{        
+        window.location.href = "./user_solicitudes"
     }
 
     peticionDelete = () => {
@@ -201,7 +210,7 @@ export default class loged_principal extends Component {
         })
     }
     seleccionarUser = (empresa) => {
-        this.setState({
+        this.setState2({
             tipoModal: 'actualizar',
             form: {
                 id: empresa.id,
@@ -211,6 +220,18 @@ export default class loged_principal extends Component {
                 email: empresa.email,
                 username: empresa.username,
                 password: empresa.password
+            }
+        })
+    }
+    seleccionarVenta = (empresa) => {
+        this.setState3({
+            tipoModal: 'actualizar',
+            form: {
+                id:empresa.id,
+                Correo:empresa.Correo,
+                Estado:empresa.Estado,
+                Monto_Total:empresa.Monto_Total,
+                Fecha:empresa.Fecha
             }
         })
     }
@@ -229,6 +250,16 @@ export default class loged_principal extends Component {
     componentDidMount() {
         this.peticionGet();
     }
+    componentDidMount2() {
+        this.peticionGet2();
+    }
+    componentDidMount3() {
+        this.peticionGet3();
+    }
+    componentDidMount4() {
+        this.peticionGet4();
+    }
+  
     añadiraCarrito = (id, precio) => {
         let dato = id;
         precio = parseInt(precio)
@@ -256,6 +287,9 @@ export default class loged_principal extends Component {
 
     render() {
         const { form } = this.state;
+        const { form4 } = this.state4;
+        const { form2 } = this.state2;
+        const { form3 } = this.state3;
         return (
             <html className="fondo">
                 <body className="fondo" >
@@ -266,7 +300,7 @@ export default class loged_principal extends Component {
                                 <rl Style='margin-left:18%'>
                                     <a id="carrito" className="fourth" href="/Conocenos">Conocenos</a>
                                     <button id="carrito" className="fourth" Style='padding:7px  0px 7px 0px;' onClick={() => this.setState({ count: 4 })}><img src={imgexport.carrito} width="20" height="20" />  Carrito</button>
-                                    <a id="carrito" className="fourth" >{correo}</a>
+                                    <button id="carrito" className="fourth" Style='padding:7px  1px 7px 1px; width: auto' onClick={() => this.Solicitudes()}>{correo}</button>
                                     <button id="carrito" className="fourth" Style='padding:7px  0px 7px 0px;width:200px' onClick={() => this.cerrarSesion()}>Cerrar Sesion</button>
                                     
                                 </rl>
@@ -313,7 +347,7 @@ export default class loged_principal extends Component {
                                 <rl Style='margin-left:18%'>
                                     <a id="carrito" className="fourth" href="/Conocenos">Conocenos</a>
                                     <button id="carrito" className="fourth" Style='padding:7px  0px 7px 0px;' onClick={() => this.setState({ count: 4 })}><img src={imgexport.carrito} width="20" height="20" />  Carrito</button>
-                                    <a id="carrito" className="fourth" >{correo}</a>
+                                    <button id="carrito" className="fourth" Style='padding:7px  1px 7px 1px; width: auto' onClick={() => this.Solicitudes()}>{correo}</button>
                                     <button id="carrito" className="fourth" Style='padding:7px  0px 7px 0px;width:200px' onClick={() => this.cerrarSesion()}>Cerrar Sesion</button>
                                     
                                 </rl>
@@ -360,7 +394,7 @@ export default class loged_principal extends Component {
                                 <rl Style='margin-left:18%'>
                                     <a id="carrito" className="fourth" href="/Conocenos">Conocenos</a>
                                     <button id="carrito" className="fourth" Style='padding:7px  0px 7px 0px;' onClick={() => this.setState({ count: 4 })}><img src={imgexport.carrito} width="20" height="20" />  Carrito</button>
-                                    <a id="carrito" className="fourth" >{correo}</a>
+                                    <button id="carrito" className="fourth" Style='padding:7px  1px 7px 1px; width: auto' onClick={() => this.Solicitudes()}>{correo}</button>
                                     <button id="carrito" className="fourth" Style='padding:7px  0px 7px 0px;width:200px' onClick={() => this.cerrarSesion()}>Cerrar Sesion</button>
                                     
                                 </rl>
@@ -411,7 +445,7 @@ export default class loged_principal extends Component {
                                 <rl Style='margin-left:18%'>
                                     <a id="carrito" className="fourth" href="/Conocenos">Conocenos</a>
                                     <button id="carrito" className="fourth" Style='padding:7px  0px 7px 0px;' onClick={() => this.setState({ count: 1 })}>Volver</button>
-                                    <a id="carrito" className="fourth" >{correo}</a>
+                                    <button id="carrito" className="fourth" Style='padding:7px  1px 7px 1px; width: auto' onClick={() => this.Solicitudes()}>{correo}</button>
                                     <button id="carrito" className="fourth" Style='padding:7px  0px 7px 0px;width:200px' onClick={() => this.cerrarSesion()}>Cerrar Sesion</button>
                                     
                                 </rl>
@@ -435,9 +469,7 @@ export default class loged_principal extends Component {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {this.state3.data3.map(empresa => {
-                                                    <p >{empresa.Correo}</p>
-                                                })}
+                                                
                                                 {this.state.data.map(empresa => {
                                                     return (
                                                         <>
@@ -471,6 +503,7 @@ export default class loged_principal extends Component {
                             </div>
                         </div>
                     )}
+                    
                     <div >
                         <Modal size="auto"
                             centered
@@ -522,6 +555,21 @@ export default class loged_principal extends Component {
 
                             <ModalFooter>
                                 <Button className="btn btn-danger" onClick={() => this.setState({ modalSolicitud: false })}>cerrar</Button>
+                            </ModalFooter>
+                        </Modal>
+                        <Modal size="auto"
+                            centered
+                            //centered className="modal fade"
+                            isOpen={this.state.modaldetalleSolicitud}>
+
+                            <ModalBody>
+                                <center><h1 Style='font-size:30px;'>Detalle Cotizacion</h1> </center><br />
+                                
+                                
+                            </ModalBody>
+
+                            <ModalFooter>
+                                <Button className="btn btn-danger" onClick={() => this.setState({ modaldetalleSolicitud: false })}>cerrar</Button>
                             </ModalFooter>
                         </Modal>
                     </div>

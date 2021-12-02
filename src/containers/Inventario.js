@@ -18,7 +18,7 @@ const url = "http://localhost:3001/Producto/";
 
 
 
-export default class Carrito extends Component {
+export default class Inventario extends Component {
     state = {
         data: [],
         modalInsertar: false,

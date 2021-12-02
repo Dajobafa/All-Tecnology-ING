@@ -151,7 +151,7 @@ export default class Login extends Component {
                             className="entradas"
                             onChange={this.handleChange} />
                         <p id="error" Style='font-size: 13px;font-family: cursive;color:rgba(255, 238, 2, 0.425)'>Email o Contraseña Incorrecta</p>
-                        <button id="ingresar" onClick={() => {this.iniciarSesion();this.logeo(this.state.form)}}>Iniciar Sesion</button>
+                        <button id="ingresar" onClick={() => {this.seleccionarEmpresa(this.state.data);this.iniciarSesion();this.logeo(this.state.form)}}>Iniciar Sesion</button>
                         
                         <br />
                         
