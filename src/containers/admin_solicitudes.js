@@ -16,8 +16,9 @@ import {
 
 const url = "http://localhost:3001/Ventas/";
 const url4 = "http://localhost:3001/Loged/";
-let correo="";
-let msolicitud={};
+let correo = "";
+let msolicitud = {};
+let productos = "";
 
 
 
@@ -39,72 +40,88 @@ export default class admin_solicitudes extends Component {
         tipoModal: ''
     }
 
-    aprobar=(empresa)=>{
+    aprobar = (empresa) => {
         fetch(url)
-        .then((res)=>res.json())
-        .then(datas2 =>{           
-               let solicitud=datas2[empresa.id-1]
-               solicitud["Estado"]=true
-               console.log(solicitud)
-               axios.put(url + this.state.form.id, solicitud).then(response => {
-               this.peticionGet();
+            .then((res) => res.json())
+            .then(datas2 => {
+                let solicitud = datas2[empresa.id - 1]
+                solicitud["Estado"] = true
+                axios.put(url + this.state.form.id, solicitud).then(response => {
+                    this.peticionGet();
+                })
             })
-        })
     }
-    datosSoli=(empresa)=>{
+    datosSoli = (empresa) => {
         fetch(url)
-        .then((res)=>res.json())
-        .then(datas2 =>{           
-               let solicitud=datas2[empresa.id-1]
-               solicitud["Estado"]=true
-               console.log(solicitud)
-               msolicitud=solicitud
-        })
+            .then((res) => res.json())
+            .then(datas2 => {
+                let solicitud = datas2[empresa.id - 1]
+                solicitud["Estado"] = true
+                msolicitud = solicitud
+            })
         console.log(msolicitud)
-        
+
     }
-    espera=(empresa)=>{
+    espera = (empresa) => {
         fetch(url)
-        .then((res)=>res.json())
-        .then(datas3 =>{           
-               let solicitud=datas3[empresa.id-1]
-               solicitud["Estado"]=false
-               console.log(solicitud)
-               axios.put(url + this.state.form.id, solicitud).then(response => {
-               this.peticionGet();
-            })
-        })
-    }
-    Rechazar=(empresa)=>{
-        fetch(url)
-        .then((res)=>res.json())
-        .then(datas3 =>{           
-                let solicitud=datas3[empresa.id-1]
-                solicitud["Estado"]="Rechazar"
+            .then((res) => res.json())
+            .then(datas3 => {
+                let solicitud = datas3[empresa.id - 1]
+                solicitud["Estado"] = false
                 console.log(solicitud)
                 axios.put(url + this.state.form.id, solicitud).then(response => {
-                this.peticionGet();
+                    this.peticionGet();
+                })
             })
-        })
+    }
+    Rechazar = (empresa) => {
+        fetch(url)
+            .then((res) => res.json())
+            .then(datas3 => {
+                let solicitud = datas3[empresa.id - 1]
+                solicitud["Estado"] = "Rechazar"
+                console.log(solicitud)
+                axios.put(url + this.state.form.id, solicitud).then(response => {
+                    this.peticionGet();
+                })
+            })
     }
     peticionGet = () => {
         fetch(url4)
-        .then((res)=>res.json())
-        .then(datas =>{           
-               let mail =datas.Correo
-               this.renombrarCorreo(mail)
-                  
-        })
+            .then((res) => res.json())
+            .then(datas => {
+                let mail = datas.Correo
+                this.renombrarCorreo(mail)
+
+            })
+
         axios.get(url).then(response => {
             this.setState({ data: response.data });
         }).catch(error => {
             console.log(error.message);
         })
     }
-    renombrarCorreo=async(mail)=>{
-        correo=mail
+    renombrarCorreo = async (mail) => {
+        correo = mail
     }
-
+    prodCot = (empresa) => {
+        fetch(url)
+            .then((res2) => res2.json())
+            .then(datas2 => {
+                let mail2 = datas2[empresa.id - 1]
+                this.cot(mail2)
+                console.log(mail2)
+                this.peticionGet();
+            })
+    }
+    cot = (mail) => {
+        productos = mail
+        delete productos.Fecha
+        delete productos.Monto_Total
+        delete productos.Estado
+        delete productos.id
+        delete productos.Correo_Usuario
+    }
     peticionPost = async () => {
         delete this.state.form.id;
         await axios.post(url, this.state.form).then(response => {
@@ -121,7 +138,7 @@ export default class admin_solicitudes extends Component {
             this.peticionGet();
         })
     }
-    
+
 
 
     peticionDelete = () => {
@@ -185,7 +202,7 @@ export default class admin_solicitudes extends Component {
     }
 
     render() {
-        const {form} = this.state;
+        const { form } = this.state;
         return (
             <html className="fondoInv">
                 <body className="fondoInv" >
@@ -219,41 +236,41 @@ export default class admin_solicitudes extends Component {
                                                 <td >{empr.Correo_Usuario}</td>
                                                 <td >{empr.Fecha}</td>
                                                 <td >
-                                                    <button Style='font-size:20px;font-weight: bold;' onClick={() => { this.seleccionarEmpresa(empr); this.aprobar(empr);this.setState({ modaldetalleSolicitud: true }) }} className="btn btn-primary" >Detalles</button>
-                                                </td>                                                
+                                                    <button Style='font-size:20px;font-weight: bold;' onClick={() => { this.seleccionarEmpresa(empr); this.prodCot(empr); this.setState({ modaldetalleSolicitud: true }); console.log(productos) }} className="btn btn-primary" >Detalles</button>
+                                                </td>
                                                 <td>${new Intl.NumberFormat("en-EN").format(empr.Monto_Total)}</td>
                                                 {empr.Estado === false && (
-                                                <>
-                                                <td ><p> En espera</p></td>
-                                                <td >
-                                                <button Style='font-size:20px;font-weight: bold; background-color:green;border-color:green' onClick={() => { this.seleccionarEmpresa(empr); this.aprobar(empr)}} className="btn btn-primary" >Aprobar</button>
-                                                <button Style='font-size:20px;font-weight: bold; background-color:red;border-color:red' onClick={() => { this.seleccionarEmpresa(empr); this.Rechazar(empr)}} className="btn btn-primary" >Rechazar</button>
-                                                </td>
-                                                </>) }
+                                                    <>
+                                                        <td ><p> En espera</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:green;border-color:green' onClick={() => { this.seleccionarEmpresa(empr); this.aprobar(empr) }} className="btn btn-primary" >Aprobar</button>
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:red;border-color:red' onClick={() => { this.seleccionarEmpresa(empr); this.Rechazar(empr) }} className="btn btn-primary" >Rechazar</button>
+                                                        </td>
+                                                    </>)}
                                                 {empr.Estado === true && (
-                                                <>
-                                                <td ><p> Aprobada</p></td>
-                                                <td >
-                                                <button Style='font-size:20px;font-weight: bold; background-color:#17A589;border-color:#17A589' onClick={() => {  this.seleccionarEmpresa(empr); this.espera(empr)}} className="btn btn-primary" >Poner en Espera</button>
-                                                </td>
-                                                </>) }
+                                                    <>
+                                                        <td ><p> Aprobada</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:#17A589;border-color:#17A589' onClick={() => { this.seleccionarEmpresa(empr); this.espera(empr) }} className="btn btn-primary" >Poner en Espera</button>
+                                                        </td>
+                                                    </>)}
                                                 {empr.Estado === "Rechazar" && (
-                                                <>
-                                                <td ><p> Rechazada</p></td>
-                                                <td >
-                                                <button Style='font-size:20px;font-weight: bold; background-color:#17A589;border-color:#17A589' onClick={() => {  this.seleccionarEmpresa(empr); this.espera(empr)}} className="btn btn-primary" >Poner en Espera</button>
-                                                </td>
-                                                </>) }
-                                               
-                                            </tr>        
+                                                    <>
+                                                        <td ><p> Rechazada</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:#17A589;border-color:#17A589' onClick={() => { this.seleccionarEmpresa(empr); this.espera(empr) }} className="btn btn-primary" >Poner en Espera</button>
+                                                        </td>
+                                                    </>)}
+
+                                            </tr>
                                         </>
                                     )
                                 })}
                             </tbody>
                         </table>
                         <br /><br /><br />
-                       
-                        
+
+
                         <Modal size="auto"
                             centered
                             //centered className="modal fade"
@@ -261,8 +278,14 @@ export default class admin_solicitudes extends Component {
 
                             <ModalBody>
                                 <center><h1 Style='font-size:30px;'>Detalle Cotizacion</h1> </center><br />
-                              
-                                
+                                ID Cotizacion:<br />
+                                {this.state.form.id}<br /><br />
+                                Productos:<br />
+                                {JSON.stringify(productos)}<br /><br />
+                                Monto Total:  <br />
+                                ${new Intl.NumberFormat("en-EN").format(this.state.form.Monto_Total)}<br /><br />
+                                Fecha Cotizacion:  <br />
+                                {this.state.form.Fecha}<br /><br />
                             </ModalBody>
 
                             <ModalFooter>
@@ -276,12 +299,12 @@ export default class admin_solicitudes extends Component {
                             <ModalBody>
                                 <div className="form-group">
                                     <label htmlFor="id">ESTADO</label>
-                                    <input className="form-control" type="boolean" name="Estado" id="id"  onChange={this.handleChange} value={form ? form.Estado : ''} />
+                                    <input className="form-control" type="boolean" name="Estado" id="id" onChange={this.handleChange} value={form ? form.Estado : ''} />
                                     <br />
                                 </div>
                             </ModalBody>
-                            <ModalFooter>                 
-                                <button className="btn btn-primary" onClick={() => this.aprobar()}>Actualizar</button>                                
+                            <ModalFooter>
+                                <button className="btn btn-primary" onClick={() => this.aprobar()}>Actualizar</button>
                                 <button className="btn btn-danger" onClick={() => this.modalInsertar()}>Cancelar</button>
                             </ModalFooter>
                         </Modal>

@@ -19,6 +19,7 @@ const url2 = "http://localhost:3001/Producto/";
 const url4 = "http://localhost:3001/Loged/";
 let correo = "";
 let Productos = {};
+let productos ={};
 
 
 
@@ -44,7 +45,24 @@ export default class user_solicitudes extends Component {
     state2 = {
         data: [],
     }
-
+    prodCot= async(empresa)=>{
+        fetch(url)
+        .then((res2)=>res2.json())
+        .then(datas2 =>{           
+               let mail2 =datas2[empresa.id-1]
+                this.cot(mail2)
+                console.log(mail2)  
+                this.peticionGet();
+        })        
+    }
+    cot=(mail)=>{
+        productos=mail
+        delete productos.Fecha
+        delete productos.Monto_Total
+        delete productos.Estado
+        delete productos.id
+        delete productos.Correo_Usuario
+    }
 
     peticionGet = () => {
         fetch(url4)
@@ -59,6 +77,7 @@ export default class user_solicitudes extends Component {
             .then(datas => {
                 let mail = datas
                 this.prod(mail)
+                this.peticionGet();
 
             })
 
@@ -159,8 +178,8 @@ export default class user_solicitudes extends Component {
                     </header >
                     <div >
                         <h3 class="carritoTitle"> Inventario de Productos </h3>
-                        <br />
-                        <button className="botonagregar" onClick={() => { this.setState({ tipoModal: 'insertar' }) }}>Ver Solicitudes</button>
+                        
+                        
                         <br /><br />
                         <table className="tabla2">
                             <thead Style='background:black;color:black;border:3px solid silver'>
@@ -183,7 +202,7 @@ export default class user_solicitudes extends Component {
                                                     <td >{empr.id}</td>
                                                     <td >{empr.Correo_Usuario}</td>
                                                     <td >
-                                                        <button Style='font-size:20px;font-weight: bold;' onClick={() => { this.seleccionarEmpresa(empr); this.setState({ modaldetalleSolicitud: true }) }} className="btn btn-primary" >Productos</button>
+                                                        <button Style='font-size:20px;font-weight: bold;' onClick={() => { this.seleccionarEmpresa(empr);this.prodCot(empr);this.setState({ modaldetalleSolicitud: true });console.log(productos)}} className="btn btn-primary" >Productos</button>
                                                     </td>
                                                     <td >{empr.Fecha}</td>
                                                     <td>${new Intl.NumberFormat("en-EN").format(empr.Monto_Total)}</td>
@@ -245,6 +264,15 @@ export default class user_solicitudes extends Component {
                     isOpen={this.state.modaldetalleSolicitud}>
                     <ModalBody>
                         <center><h1 Style='font-size:30px;'>Detalle Cotizacion</h1> </center><br />
+                        ID Cotizacion:<br />
+                        {this.state.form.id}<br /><br />
+                        Productos:<br />
+                        {JSON.stringify(productos)}<br /><br />
+                        Monto Total:  <br />
+                        ${new Intl.NumberFormat("en-EN").format(this.state.form.Monto_Total)}<br /><br />                        
+                        Fecha Cotizacion:  <br />
+                        {this.state.form.Fecha}<br /><br />
+
                     </ModalBody>
                     <ModalFooter>
                         <Button className="btn btn-danger" onClick={() => this.setState({ modaldetalleSolicitud: false })}>cerrar</Button>

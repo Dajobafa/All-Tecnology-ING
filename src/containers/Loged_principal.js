@@ -99,6 +99,7 @@ export default class loged_principal extends Component {
         .then(datas =>{           
                let mail =datas.Correo
                this.renombrarCorreo(mail)
+               this.peticionGet();
                   
         })
         fetch(url3)
@@ -550,7 +551,7 @@ export default class loged_principal extends Component {
                                 <center> <p>Rebiras un correo dentro de las proximas horas respondiendo a tu solicitud.</p></center>
                                 <center> <p>Muchas Gracias por preferirnos!!</p></center><br />
                                 <center> <p Style='font-weight: bold;'>Monto Total: ${new Intl.NumberFormat("en-EN").format(totalCarrito[0])} </p></center>
-                                <center> <p Style='font-weight: bold;'>Id de Venta: {leng+1} </p></center>
+                                <center> <p Style='font-weight: bold;'>Id de Venta: {leng} </p></center>
                             </ModalBody>
 
                             <ModalFooter>
