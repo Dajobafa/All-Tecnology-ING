@@ -213,7 +213,8 @@ export default class admin_solicitudes extends Component {
                         </rl>
                     </header >
                     <div >
-                        <h3 class="carritoTitle"> Inventario de Productos </h3>
+                        <h3 class="carritoTitle"> Inventario de Productos </h3><br />
+                        <center Style='color:white'><h3 > EN ESPERA </h3></center>V
                         <br />
                         <table className="tabla2">
                             <thead Style='background:black;color:black;border:3px solid silver'>
@@ -228,9 +229,11 @@ export default class admin_solicitudes extends Component {
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 {this.state.data.map(empr => {
                                     return (
                                         <>
+                                            {empr.Estado=== false && (
                                             <tr Style='background:white;'>
                                                 <td >{empr.id}</td>
                                                 <td >{empr.Correo_Usuario}</td>
@@ -263,6 +266,123 @@ export default class admin_solicitudes extends Component {
                                                     </>)}
 
                                             </tr>
+                                            )}
+                                        </>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        <br /><br />
+                        <center Style='color:white'><h3 > APROBADOS </h3></center><br />
+                        <table className="tabla2">
+                            <thead Style='background:black;color:black;border:3px solid silver'>
+                                <tr>
+                                    <th Style='color:white;border:3px solid silver'>Id Solicitud</th>
+                                    <th Style='color:white;border:3px solid silver'>Correo</th>
+                                    <th Style='color:white;border:3px solid silver'>Detalle</th>
+                                    <th Style='color:white;border:3px solid silver'>Fecha</th>
+                                    <th Style='color:white;border:3px solid silver'>Monto Total</th>
+                                    <th Style='color:white;border:3px solid silver'>Estado</th>
+                                    <th Style='color:white;border:3px solid silver'>Aprobar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {this.state.data.map(empr => {
+                                    return (
+                                        <>
+                                            {empr.Estado=== true && (
+                                            <tr Style='background:white;'>
+                                                <td >{empr.id}</td>
+                                                <td >{empr.Correo_Usuario}</td>
+                                                <td >{empr.Fecha}</td>
+                                                <td >
+                                                    <button Style='font-size:20px;font-weight: bold;' onClick={() => { this.seleccionarEmpresa(empr); this.prodCot(empr); this.setState({ modaldetalleSolicitud: true }); console.log(productos) }} className="btn btn-primary" >Detalles</button>
+                                                </td>
+                                                <td>${new Intl.NumberFormat("en-EN").format(empr.Monto_Total)}</td>
+                                                {empr.Estado === false && (
+                                                    <>
+                                                        <td ><p> En espera</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:green;border-color:green' onClick={() => { this.seleccionarEmpresa(empr); this.aprobar(empr) }} className="btn btn-primary" >Aprobar</button>
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:red;border-color:red' onClick={() => { this.seleccionarEmpresa(empr); this.Rechazar(empr) }} className="btn btn-primary" >Rechazar</button>
+                                                        </td>
+                                                    </>)}
+                                                {empr.Estado === true && (
+                                                    <>
+                                                        <td ><p> Aprobada</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:#17A589;border-color:#17A589' onClick={() => { this.seleccionarEmpresa(empr); this.espera(empr) }} className="btn btn-primary" >Poner en Espera</button>
+                                                        </td>
+                                                    </>)}
+                                                {empr.Estado === "Rechazar" && (
+                                                    <>
+                                                        <td ><p> Rechazada</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:#17A589;border-color:#17A589' onClick={() => { this.seleccionarEmpresa(empr); this.espera(empr) }} className="btn btn-primary" >Poner en Espera</button>
+                                                        </td>
+                                                    </>)}
+
+                                            </tr>
+                                            )}
+                                        </>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        <br /><br />
+                        <center Style='color:white'><h3 > RECHAZADOS </h3></center><br /><br />
+                        <table className="tabla2">
+                            <thead Style='background:black;color:black;border:3px solid silver'>
+                                <tr>
+                                    <th Style='color:white;border:3px solid silver'>Id Solicitud</th>
+                                    <th Style='color:white;border:3px solid silver'>Correo</th>
+                                    <th Style='color:white;border:3px solid silver'>Detalle</th>
+                                    <th Style='color:white;border:3px solid silver'>Fecha</th>
+                                    <th Style='color:white;border:3px solid silver'>Monto Total</th>
+                                    <th Style='color:white;border:3px solid silver'>Estado</th>
+                                    <th Style='color:white;border:3px solid silver'>Aprobar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {this.state.data.map(empr => {
+                                    return (
+                                        <>
+                                            {empr.Estado=== "Rechazar" && (
+                                            <tr Style='background:white;'>
+                                                <td >{empr.id}</td>
+                                                <td >{empr.Correo_Usuario}</td>
+                                                <td >{empr.Fecha}</td>
+                                                <td >
+                                                    <button Style='font-size:20px;font-weight: bold;' onClick={() => { this.seleccionarEmpresa(empr); this.prodCot(empr); this.setState({ modaldetalleSolicitud: true }); console.log(productos) }} className="btn btn-primary" >Detalles</button>
+                                                </td>
+                                                <td>${new Intl.NumberFormat("en-EN").format(empr.Monto_Total)}</td>
+                                                {empr.Estado === false && (
+                                                    <>
+                                                        <td ><p> En espera</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:green;border-color:green' onClick={() => { this.seleccionarEmpresa(empr); this.aprobar(empr) }} className="btn btn-primary" >Aprobar</button>
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:red;border-color:red' onClick={() => { this.seleccionarEmpresa(empr); this.Rechazar(empr) }} className="btn btn-primary" >Rechazar</button>
+                                                        </td>
+                                                    </>)}
+                                                {empr.Estado === true && (
+                                                    <>
+                                                        <td ><p> Aprobada</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:#17A589;border-color:#17A589' onClick={() => { this.seleccionarEmpresa(empr); this.espera(empr) }} className="btn btn-primary" >Poner en Espera</button>
+                                                        </td>
+                                                    </>)}
+                                                {empr.Estado === "Rechazar" && (
+                                                    <>
+                                                        <td ><p> Rechazada</p></td>
+                                                        <td >
+                                                            <button Style='font-size:20px;font-weight: bold; background-color:#17A589;border-color:#17A589' onClick={() => { this.seleccionarEmpresa(empr); this.espera(empr) }} className="btn btn-primary" >Poner en Espera</button>
+                                                        </td>
+                                                    </>)}
+
+                                            </tr>
+                                            )}
                                         </>
                                     )
                                 })}
